@@ -12,7 +12,7 @@ module.exports = {
       authId: {
         allowNull: false,
         type: Sequelize.STRING,
-        defaultValue: "Not Created",
+        defaultValue: "NotCreated",
       },
       panId: {
         type: Sequelize.STRING,
@@ -25,6 +25,7 @@ module.exports = {
       isActive: {
         type: Sequelize.STRING,
         defaultValue: "N",
+        allowNull: false,
       },
       isDeleted: {
         allowNull: false,
@@ -38,6 +39,7 @@ module.exports = {
       createdBy: {
         type: Sequelize.STRING,
         defaultValue: "user",
+        allowNull: false,
       },
       updatedAt: {
         allowNull: false,
