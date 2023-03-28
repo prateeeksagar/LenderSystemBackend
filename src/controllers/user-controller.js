@@ -1,14 +1,24 @@
 const { UserService } = require("../services/index");
-
+const { UserDetailService } = require("../services/index");
 const userService = new UserService();
-
+const userDetailService = new UserDetailService();
 const create = async (req, res) => {
   try {
-    const user = await userService.createUser(req.body);
+    const data = {
+      panId: req.body.panId,
+      password: req.body.password,
+    };
+    const user = await userService.createUser(data);
+    const detail = {
+      userId: user.uid,
+      panId: user.panId,
+    };
+    // console.log(user);
+    await userDetailService.createUserDetail(detail);
     return res.status(201).json({
       data: user,
       success: true,
-      message: "successfully created the city",
+      message: "successfully created the user",
       err: {},
     });
   } catch (error) {
@@ -103,10 +113,32 @@ const getAll = async (req, res) => {
   }
 };
 
+const signIn = async (req, res) => {
+  try {
+    const response = await userService.signIn(
+      req.body.panId,
+      req.body.password
+    );
+    return res.status(200).json({
+      success: true,
+      data: response,
+      err: {},
+      message: "successfully signed In",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "not able to sign in",
+      success: false,
+      err: error,
+    });
+  }
+};
+
 module.exports = {
   create,
   destroy,
   update,
   get,
   getAll,
+  signIn,
 };

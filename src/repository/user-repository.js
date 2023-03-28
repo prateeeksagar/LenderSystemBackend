@@ -1,9 +1,14 @@
 const { User } = require("../models/index");
-
+const uniqid = require("uniqid");
 class UsersRepository {
   async createUser(data) {
     try {
-      const user = await User.create(data);
+      const authrizationId = uniqid();
+      const user = await User.create({
+        // data
+        ...data,
+        authId: authrizationId,
+      });
       return user;
     } catch (error) {
       console.log("something went wrong in the user repo");
@@ -13,8 +18,8 @@ class UsersRepository {
 
   async deleteUser(userId) {
     try {
-      const user = await User.destry({
-        where: { id: userId },
+      const user = await User.destroy({
+        where: { uid: userId },
       });
       return user;
     } catch (error) {
@@ -27,7 +32,7 @@ class UsersRepository {
     try {
       const user = await User.update(data, {
         where: {
-          id: userId,
+          uid: userId,
         },
       });
       return user;
@@ -51,6 +56,21 @@ class UsersRepository {
     try {
       const users = await User.findAll();
       return users;
+    } catch (error) {
+      console.log("something went wrong in the user repo");
+      throw { error };
+    }
+  }
+
+  async getByPan(userPanId) {
+    try {
+      const check = await User.findOne({
+        where: {
+          panId: userPanId,
+        },
+      });
+      console.log("in repo", check.dataValues);
+      return check;
     } catch (error) {
       console.log("something went wrong in the user repo");
       throw { error };
