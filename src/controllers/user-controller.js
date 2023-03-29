@@ -1,7 +1,8 @@
 const { UserService } = require("../services/index");
-const { UserDetailService } = require("../services/index");
+const { UserDetailService, InvestmentService } = require("../services/index");
 const userService = new UserService();
 const userDetailService = new UserDetailService();
+const investmentService = new InvestmentService();
 const create = async (req, res) => {
   try {
     const data = {
@@ -15,6 +16,7 @@ const create = async (req, res) => {
     };
     // console.log(user);
     await userDetailService.createUserDetail(detail);
+    await investmentService.createInvestment(detail.userId);
     return res.status(201).json({
       data: user,
       success: true,
@@ -134,6 +136,26 @@ const signIn = async (req, res) => {
   }
 };
 
+const isAuthenticated = async (req, res) => {
+  try {
+    const token = req.headers["x-access-token"];
+    const response = await userService.isAuthenticated(token);
+    return res.status(200).json({
+      success: true,
+      err: {},
+      data: response,
+      message: "user is authenticated and the token is valid",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "something went wrong in the isAuth",
+      success: false,
+      err: error,
+    });
+  }
+};
+
 module.exports = {
   create,
   destroy,
@@ -141,4 +163,5 @@ module.exports = {
   get,
   getAll,
   signIn,
+  isAuthenticated,
 };

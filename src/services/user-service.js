@@ -92,6 +92,23 @@ class UserSerivce {
     }
   }
 
+  async isAuthenticated(token) {
+    try {
+      const response = this.verifyToken(token);
+      if (!response) {
+        throw { err: "Invalid Token" };
+      }
+      const user = this.userRepository.getUser(response.uid);
+      if (!user) {
+        throw { error: "No user with corresponding token exists" };
+      }
+      return user.uid;
+    } catch (error) {
+      console.log("something went wrong in auth process");
+      throw error;
+    }
+  }
+
   async verifyToken(token) {
     try {
       const response = jwt.verify(token, JWT_KEY);

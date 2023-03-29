@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       this.hasOne(models.UserDetail, {
         foreignKey: "uid",
       });
+      this.hasOne(models.Investment, {
+        foreignKey: "uid",
+      });
     }
   }
   User.init(

@@ -2,7 +2,9 @@ const express = require("express");
 
 const userController = require("../../controllers/user-controller");
 const userDetailController = require("../../controllers/userDetail-controller");
+const investmentController = require("../../controllers/investment-controller");
 
+const { AuthRequestValidator } = require("../../middlewares/index");
 const router = express.Router();
 
 // these apis for do changes in the user table
@@ -13,11 +15,25 @@ router.get("/user", userController.getAll);
 router.patch("/user/:id", userController.update);
 
 //Api for signin and signup in the application
-router.post("/signup", userController.create);
-router.post("/signin", userController.signIn);
+router.post(
+  "/signup",
+  AuthRequestValidator.validateUserAuth,
+  userController.create
+);
+router.post(
+  "/signin",
+  AuthRequestValidator.validateUserAuth,
+  userController.signIn
+);
+
+//api to check that the user is authenticated
+router.get("/isAuthenticated", userController.isAuthenticated);
 
 // this api only for registration
 router.patch("/register/:id", userDetailController.update);
+
+//for investment table
+router.post("/investment", investmentController.create);
 
 module.exports = router;
 
