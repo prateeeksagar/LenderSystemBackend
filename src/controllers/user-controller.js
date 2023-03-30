@@ -6,13 +6,15 @@ const investmentService = new InvestmentService();
 const create = async (req, res) => {
   try {
     const data = {
-      panId: req.body.panId,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      mobileNo: req.body.mobileNo,
+      emailId: req.body.emailId,
       password: req.body.password,
     };
     const user = await userService.createUser(data);
     const detail = {
       userId: user.uid,
-      panId: user.panId,
     };
     // console.log(user);
     await userDetailService.createUserDetail(detail);

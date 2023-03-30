@@ -98,7 +98,7 @@ class UserSerivce {
       if (!response) {
         throw { err: "Invalid Token" };
       }
-      const user = this.userRepository.getUser(response.uid);
+      const user = await this.userRepository.getUser(response.uid);
       if (!user) {
         throw { error: "No user with corresponding token exists" };
       }
@@ -109,7 +109,7 @@ class UserSerivce {
     }
   }
 
-  async verifyToken(token) {
+  verifyToken(token) {
     try {
       const response = jwt.verify(token, JWT_KEY);
       return response;

@@ -32,7 +32,11 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: "NotCreated",
       },
       // authId: DataTypes.STRING,
-      panId: { type: DataTypes.STRING, allowNull: false },
+      firstName: { type: DataTypes.STRING, allowNull: false },
+      lastName: { type: DataTypes.STRING, allowNull: false },
+      emailId: { type: DataTypes.STRING, allowNull: false, unique: true },
+
+      mobileNo: { type: DataTypes.STRING, allowNull: false, unique: true },
       password: { type: DataTypes.STRING, allowNull: false },
       // isActive: DataTypes.STRING,
       // createdOn: DataTypes.DATE,

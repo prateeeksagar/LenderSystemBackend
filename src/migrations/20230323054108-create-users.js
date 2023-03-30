@@ -14,15 +14,12 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: "NotCreated",
       },
-      panId: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      password: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
+      firstName: { type: Sequelize.STRING, allowNull: false },
+      lastName: { type: Sequelize.STRING, allowNull: false },
+      emailId: { type: Sequelize.STRING, allowNull: false, unique: true },
+
+      mobileNo: { type: Sequelize.STRING, allowNull: false, unique: true },
+      password: { type: Sequelize.STRING, allowNull: false },
       isActive: {
         type: Sequelize.STRING,
         defaultValue: "N",

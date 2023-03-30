@@ -15,7 +15,7 @@ class UserDetailsRepository {
     try {
       const userDetail = await UserDetail.update(data, {
         where: {
-          uid: userId,
+          userId: userId,
         },
       });
       return userDetail;

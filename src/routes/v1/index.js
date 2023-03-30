@@ -20,16 +20,12 @@ router.post(
   AuthRequestValidator.validateUserAuth,
   userController.create
 );
-router.post(
-  "/signin",
-  AuthRequestValidator.validateUserAuth,
-  userController.signIn
-);
+router.post("/signin", userController.signIn);
 
 //api to check that the user is authenticated
 router.get("/isAuthenticated", userController.isAuthenticated);
 
-// this api only for registration
+// this api only for registration(KYC)
 router.patch("/register/:id", userDetailController.update);
 
 //for investment table

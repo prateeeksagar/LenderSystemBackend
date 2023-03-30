@@ -19,22 +19,21 @@ module.exports = {
         },
         allowNull: false,
       },
-      firstName: {
+      fatherName: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      lastName: {
+      gender: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      emailId: {
+      dateOfBirth: {
         type: Sequelize.STRING,
         allowNull: true,
-        unique: true,
       },
       panId: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
         unique: true,
       },
       aadharId: {
@@ -42,11 +41,7 @@ module.exports = {
         allowNull: true,
         unique: true,
       },
-      mobileNo: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        unique: true,
-      },
+
       EmpType: {
         type: Sequelize.STRING,
         allowNull: true,

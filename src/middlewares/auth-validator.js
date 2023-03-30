@@ -1,18 +1,16 @@
 const validateUserAuth = (req, res, next) => {
-  if (!req.body.panId) {
+  if (
+    !req.body.firstName ||
+    !req.body.lastName ||
+    !req.body.emailId ||
+    !req.body.mobileNo ||
+    !req.body.password
+  ) {
     return res.status(400).json({
       success: false,
       data: {},
       message: "something went wrong",
-      err: "Pan id missing in the sign process",
-    });
-  }
-  if (!req.body.password) {
-    return res.status(400).json({
-      success: false,
-      data: {},
-      message: "something went wrong",
-      err: " Password missing in the sign process",
+      err: "something missing in the request",
     });
   }
   next();

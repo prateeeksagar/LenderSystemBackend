@@ -28,11 +28,11 @@ const userDetailService = new UserDetailService();
 const update = async (req, res) => {
   try {
     const detail = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      emailId: req.body.emailId,
+      fatherName: req.body.fatherName,
+      gender: req.body.gender,
+      dateOfBirth: req.body.dateOfBirth,
+      panId: req.body.panId,
       aadharId: req.body.aadharId,
-      mobileNo: req.body.mobileNo,
       EmpType: req.body.EmpType,
       address: req.body.address,
       postOffice: req.body.postOffice,
