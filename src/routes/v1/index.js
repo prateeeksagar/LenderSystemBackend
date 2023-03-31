@@ -31,6 +31,9 @@ router.patch("/register/:id", userDetailController.update);
 //for investment table
 router.post("/investment", investmentController.create);
 
+//this api to check that the user is admin or not
+router.get("/isAdmin", userController.isAdmin);
+
 module.exports = router;
 
 /*

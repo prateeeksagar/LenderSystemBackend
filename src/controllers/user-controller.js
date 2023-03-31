@@ -99,7 +99,7 @@ const get = async (req, res) => {
 
 const getAll = async (req, res) => {
   try {
-    const users = await userService.getAllUser();
+    const users = await userService.getAllUser(req.body);
     return res.status(200).json({
       data: users,
       success: true,
@@ -120,7 +120,7 @@ const getAll = async (req, res) => {
 const signIn = async (req, res) => {
   try {
     const response = await userService.signIn(
-      req.body.panId,
+      req.body.emailId,
       req.body.password
     );
     return res.status(200).json({
@@ -158,6 +158,25 @@ const isAuthenticated = async (req, res) => {
   }
 };
 
+const isAdmin = async (req, res) => {
+  try {
+    const response = await userService.isAdmin(req.body.userId);
+    return res.status(200).json({
+      data: response,
+      success: true,
+      err: {},
+      message: "successfully fetched user is Admin or not",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "something went wrong in the isAuth",
+      success: false,
+      err: error,
+    });
+  }
+};
+
 module.exports = {
   create,
   destroy,
@@ -166,4 +185,5 @@ module.exports = {
   getAll,
   signIn,
   isAuthenticated,
+  isAdmin,
 };

@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       this.hasOne(models.Investment, {
         foreignKey: "uid",
       });
+      this.belongsToMany(models.Role, {
+        through: "User_Roles",
+      });
     }
   }
   User.init(

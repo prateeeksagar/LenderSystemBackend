@@ -48,9 +48,9 @@ class UserSerivce {
     }
   }
 
-  async getAllUser() {
+  async getAllUser(filter) {
     try {
-      const response = await this.userRepository.getAllUser();
+      const response = await this.userRepository.getAllUser(filter);
       return response;
     } catch (error) {
       console.log("something went wrong int user service");
@@ -58,23 +58,26 @@ class UserSerivce {
     }
   }
 
-  async signIn(userPanId, password) {
-    console.log(userPanId, password);
+  async signIn(emailId, password) {
+    console.log(emailId, password);
     try {
-      const check = await this.userRepository.getByPan(userPanId);
+      const check = await this.userRepository.getByEmail(emailId);
       console.log("it is in the service", check.dataValues);
       if (password != check.password) {
         console.log("password is not matching");
         throw { error: "Incorrect Password" };
       }
-
+      const id = check.uid;
       //if password matches
-      const newJWT = this.createToken({
-        panId: check.panId,
+      const newJWT = await this.createToken({
+        emailId: check.emailId,
         uid: check.uid,
       });
-      console.log(newJWT);
-      return newJWT;
+      const result = {
+        newJWT,
+        id,
+      };
+      return result;
     } catch (error) {
       console.log(error);
       console.log("something went wrong in the user service");
@@ -116,6 +119,15 @@ class UserSerivce {
     } catch (error) {
       console.log("something went wrong in verify token");
       throw { error };
+    }
+  }
+
+  async isAdmin(userId) {
+    try {
+      return this.userRepository.isAdmin(userId);
+    } catch (error) {
+      console.log("something went wrong in the isAdmin in user service");
+      throw error;
     }
   }
 }
