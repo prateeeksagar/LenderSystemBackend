@@ -62,12 +62,13 @@ class UserSerivce {
     console.log(emailId, password);
     try {
       const check = await this.userRepository.getByEmail(emailId);
-      console.log("it is in the service", check.dataValues);
       if (password != check.password) {
         console.log("password is not matching");
         throw { error: "Incorrect Password" };
       }
       const id = check.uid;
+
+      const roleId = await this.userRepository.getRole(id);
       //if password matches
       const newJWT = await this.createToken({
         emailId: check.emailId,
@@ -76,6 +77,7 @@ class UserSerivce {
       const result = {
         newJWT,
         id,
+        roleId,
       };
       return result;
     } catch (error) {

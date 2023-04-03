@@ -1,4 +1,4 @@
-const { User, Role } = require("../models/index");
+const { User, Role, User_Roles } = require("../models/index");
 const uniqid = require("uniqid");
 class UsersRepository {
   #createFilter(data) {
@@ -102,6 +102,50 @@ class UsersRepository {
       return user.hasRole(adminRole);
     } catch (error) {
       console.log("something went wrong in the user repo");
+      throw { error };
+    }
+  }
+  async isAgent(userId) {
+    try {
+      const user = await User.findByPk(userId);
+      const adminRole = await Role.findOne({
+        where: {
+          name: "AGENT",
+        },
+      });
+      console.log(adminRole);
+      return user.hasRole(adminRole);
+    } catch (error) {
+      console.log("something went wrong in the user repo");
+      throw { error };
+    }
+  }
+  async isLender(userId) {
+    try {
+      const user = await User.findByPk(userId);
+      const adminRole = await Role.findOne({
+        where: {
+          name: "LENDER",
+        },
+      });
+      console.log(adminRole);
+      return user.hasRole(adminRole);
+    } catch (error) {
+      console.log("something went wrong in the user repo");
+      throw { error };
+    }
+  }
+
+  async getRole(userId) {
+    try {
+      const checkAdmin = await this.isAdmin(userId);
+      if (checkAdmin) return 1;
+      const checkLender = await this.isLender(userId);
+      if (checkLender) return 2;
+      const checkAgent = await this.isAgent(userId);
+      if (checkAgent) return 3;
+    } catch (error) {
+      console.log("something went wrong in the getRole function");
       throw { error };
     }
   }

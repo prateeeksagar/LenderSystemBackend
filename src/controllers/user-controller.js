@@ -158,6 +158,7 @@ const isAuthenticated = async (req, res) => {
   }
 };
 
+//This is extra function (not in use)
 const isAdmin = async (req, res) => {
   try {
     const response = await userService.isAdmin(req.body.userId);
