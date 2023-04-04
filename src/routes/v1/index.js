@@ -28,6 +28,9 @@ router.get("/isAuthenticated", userController.isAuthenticated);
 // this api only for registration(KYC)
 router.patch("/register/:id", userDetailController.update);
 
+//this api will give you the union of all detail from the user and userdetail table
+router.get("/lenderData", userDetailController.getAllUserData);
+
 //for investment table
 router.post("/investment", investmentController.create);
 

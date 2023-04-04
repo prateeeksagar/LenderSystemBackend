@@ -124,6 +124,7 @@ class UserSerivce {
     }
   }
 
+  //not for use right now
   async isAdmin(userId) {
     try {
       return this.userRepository.isAdmin(userId);

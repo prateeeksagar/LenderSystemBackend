@@ -1,4 +1,4 @@
-const { UserDetail } = require("../models/index");
+const { UserDetail, User, sequelize } = require("../models/index");
 
 class UserDetailsRepository {
   async createUserDetail(data) {
@@ -37,6 +37,17 @@ class UserDetailsRepository {
       throw { error };
     }
   }
-}
 
+  async getAllUserdata() {
+    try {
+      const [result, metadata] = await sequelize.query(
+        "SELECT * FROM UserDetails as UserDetail JOIN Users as User ON User.uid = UserDetail.userId;"
+      );
+      return metadata;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+}
 module.exports = UserDetailsRepository;
