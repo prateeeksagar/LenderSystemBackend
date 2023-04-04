@@ -178,6 +178,30 @@ const isAdmin = async (req, res) => {
   }
 };
 
+const updateRole = async (req, res) => {
+  try {
+    // console.log("userId - ", req.body.userId, "role - ", req.body.roleId);
+    const response = await userService.updateRole(
+      req.body.userId,
+      req.body.roleId
+    );
+
+    return res.status(200).json({
+      data: response,
+      success: true,
+      err: {},
+      message: "successfully updated the Role",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "failed to update the Role",
+      success: false,
+      err: error,
+    });
+  }
+};
+
 module.exports = {
   create,
   destroy,
@@ -187,4 +211,5 @@ module.exports = {
   signIn,
   isAuthenticated,
   isAdmin,
+  updateRole,
 };

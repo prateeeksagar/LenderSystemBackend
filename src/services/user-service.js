@@ -133,6 +133,17 @@ class UserSerivce {
       throw error;
     }
   }
+
+  async updateRole(userId, roleId) {
+    try {
+      const response = await this.userRepository.updateRole(userId, roleId);
+      return response;
+    } catch (error) {
+      console.log(error);
+      console.log("something went  wrong in the user service");
+      throw { error };
+    }
+  }
 }
 
 module.exports = UserSerivce;

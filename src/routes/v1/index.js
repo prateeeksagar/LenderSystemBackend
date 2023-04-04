@@ -8,7 +8,6 @@ const { AuthRequestValidator } = require("../../middlewares/index");
 const router = express.Router();
 
 // these apis for do changes in the user table
-
 router.delete("/user/:id", userController.destroy);
 router.get("/user/:id", userController.get);
 router.get("/user", userController.getAll);
@@ -36,6 +35,9 @@ router.post("/investment", investmentController.create);
 
 //this api to check that the user is admin or not [NOT IN USE]
 router.get("/isAdmin", userController.isAdmin);
+
+//this api to update the roles of  the user
+router.patch("/updateUserRole", userController.updateRole);
 
 module.exports = router;
 

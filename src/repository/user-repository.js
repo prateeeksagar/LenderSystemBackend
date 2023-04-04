@@ -1,4 +1,4 @@
-const { User, Role, User_Roles } = require("../models/index");
+const { User, Role, User_Roles, sequelize } = require("../models/index");
 const uniqid = require("uniqid");
 class UsersRepository {
   #createFilter(data) {
@@ -146,6 +146,24 @@ class UsersRepository {
       if (checkAgent) return 3;
     } catch (error) {
       console.log("something went wrong in the getRole function");
+      throw { error };
+    }
+  }
+
+  async updateRole(userId, roleId) {
+    try {
+      const response = await sequelize.query(
+        `UPDATE User_Roles as User_Role SET roleId = ${roleId} WHERE UserUid = ${userId};`
+      );
+
+      // const [result, metadata] = await sequelize.query(
+      //   "SELECT * FROM UserDetails as UserDetail JOIN Users as User ON User.uid = UserDetail.userId;"
+      // );
+
+      return response;
+    } catch (error) {
+      console.log("in repo----", error);
+      console.log("something went wrong in the update role");
       throw { error };
     }
   }
