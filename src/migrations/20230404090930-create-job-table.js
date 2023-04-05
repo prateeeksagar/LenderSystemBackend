@@ -29,15 +29,15 @@ module.exports = {
       jobEnd: {
         type: Sequelize.DATE,
         allowNull: true,
-        defaultValue: NaN,
       },
       createdBy: {
         type: Sequelize.INTEGER,
-        defaultValue: userId,
+        defaultValue: 1,
       },
       updatedBy: {
         type: Sequelize.INTEGER,
         allowNull: true,
+        defaultValue: 1,
       },
       createdAt: {
         type: Sequelize.DATE,

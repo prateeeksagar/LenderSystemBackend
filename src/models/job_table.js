@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Job_Table.init(
     {
-      userId: { type: DataTypes.INTEGER },
+      userId: { type: DataTypes.INTEGER, allowNull: false },
       agentId: { type: DataTypes.INTEGER, allowNull: true },
       status: {
         type: DataTypes.STRING,
@@ -26,13 +26,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       jobEnd: {
         type: DataTypes.DATE,
-        allowNull: true,
-      },
-      createdBy: {
-        type: DataTypes.INTEGER,
-      },
-      updatedBy: {
-        type: DataTypes.INTEGER,
         allowNull: true,
       },
     },
