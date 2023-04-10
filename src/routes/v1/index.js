@@ -42,6 +42,9 @@ router.patch("/updateUserRole", userController.updateRole);
 //API FOR AGENT
 //fetch Users as Agent Access
 router.get("/allAgentData", agentController.getAllAgents);
+router.post("/createAgent", agentController.createAgent);
+router.patch("/updateAgent", agentController.updateAgent);
+
 
 module.exports = router;
 

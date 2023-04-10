@@ -14,6 +14,27 @@ class AgentService {
       throw error;
     }
   }
+
+  async createAgent(data) {
+    try {
+      const user = await this.agentRepository.createAgent(data);
+      return user;
+    } catch (error) {
+      console.log(error);
+      console.log("something went wrong in the agent service");
+      throw error;
+    }
+  }
+
+  async updateAgent(userId, data) {
+    try {
+      const response = await this.agentRepository.updateAgent(userId, data);
+      return response;
+    } catch (error) {
+      console.log("something went wrong in the agent repo");
+      throw { error };
+    }
+  }
 }
 
 module.exports = AgentService;
