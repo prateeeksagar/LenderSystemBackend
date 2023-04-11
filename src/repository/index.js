@@ -3,4 +3,7 @@ module.exports = {
   UserDetailsRepository: require("./userDetail-repository"),
   InvestmentRepository: require("../repository/investment-repository"),
   AgentRepository: require("../repository/agent-repository"),
+  LenderRepository: require("../repository/lender-repository"),
 };
+
+

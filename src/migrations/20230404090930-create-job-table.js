@@ -47,6 +47,11 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
+      isDeleted: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: "N",
+      },
     });
   },
   async down(queryInterface, Sequelize) {

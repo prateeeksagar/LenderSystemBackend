@@ -66,8 +66,28 @@ const updateAgent = async (req, res) => {
     });
   }
 };
+
+const softDelete = async (req, res) => {
+  try {
+    const response = await agentService.softDelete(req.query.id);
+    return res.status(200).json({
+      data: response,
+      success: true,
+      message: "successfully updated the deleted status",
+      err: {},
+    });
+  } catch (error) {
+    return res.status(400).json({
+      data: {},
+      success: false,
+      message: "not able to change the value",
+      err: error,
+    });
+  }
+};
 module.exports = {
   getAllAgents,
   createAgent,
   updateAgent,
+  softDelete,
 };

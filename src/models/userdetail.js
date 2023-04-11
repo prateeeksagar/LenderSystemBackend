@@ -38,6 +38,11 @@ module.exports = (sequelize, DataTypes) => {
       state: { type: DataTypes.STRING, allowNull: true },
       bankAccountNumber: { type: DataTypes.STRING, allowNull: true },
       ifscCode: { type: DataTypes.STRING, allowNull: true },
+      isDeleted: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "N",
+      },
     },
     {
       sequelize,

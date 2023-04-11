@@ -40,6 +40,11 @@ module.exports = {
         allowNull: false,
         defaultValue: "User",
       },
+      isDeleted: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: "N",
+      },
     });
   },
   async down(queryInterface, Sequelize) {

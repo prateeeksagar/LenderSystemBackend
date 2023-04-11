@@ -18,7 +18,13 @@ module.exports = (sequelize, DataTypes) => {
   Investment.init(
     {
       userId: { type: DataTypes.INTEGER, allowNull: false },
+      isDeleted: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "N",
+      },
     },
+
     {
       sequelize,
       modelName: "Investment",

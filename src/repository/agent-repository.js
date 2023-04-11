@@ -42,6 +42,27 @@ class agentRepository {
       throw { error };
     }
   }
+
+  async softDelete(userId) {
+    try {
+      const lender = await User.findByPk(userId);
+      console.log(lender);
+      if (lender.dataValues.isDeleted == "Y") {
+        await sequelize.query(
+          `UPDATE Users SET isDeleted = 'N' WHERE uid = ${userId};`
+        );
+        return true;
+      } else {
+        await sequelize.query(
+          `UPDATE Users SET isDeleted = 'Y' WHERE uid = ${userId};`
+        );
+        return true;
+      }
+    } catch (error) {
+      console.log("cannot change the isDeleted Status");
+      throw { error };
+    }
+  }
 }
 
 module.exports = agentRepository;

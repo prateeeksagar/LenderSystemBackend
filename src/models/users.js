@@ -41,12 +41,28 @@ module.exports = (sequelize, DataTypes) => {
 
       mobileNo: { type: DataTypes.STRING, allowNull: false, unique: true },
       password: { type: DataTypes.STRING, allowNull: false },
-      // isActive: DataTypes.STRING,
+      isActive: {
+        type: DataTypes.STRING,
+        defaultValue: "N",
+        allowNull: false,
+      },
       // createdOn: DataTypes.DATE,
-      // createdBy: DataTypes.STRING,
+      createdBy: {
+        type: DataTypes.STRING,
+        defaultValue: "user",
+        allowNull: false,
+      },
       // updatedOn: DataTypes.DATE,
-      // updatedBy: DataTypes.STRING,
-      // isDeleted: DataTypes.STRING
+      updatedBy: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "user",
+      },
+      isDeleted: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        defaultValue: "N",
+      },
     },
     {
       sequelize,

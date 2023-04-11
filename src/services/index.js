@@ -3,4 +3,5 @@ module.exports = {
   UserDetailService: require("./userDetail-service"),
   InvestmentService: require("./investment-service"),
   AgentService: require("./agent-service"),
+  LenderService: require("./lender-service"),
 };

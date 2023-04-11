@@ -35,6 +35,16 @@ class AgentService {
       throw { error };
     }
   }
+
+  async softDelete(userId) {
+    try {
+      const soft_delete = await this.agentRepository.softDelete(userId);
+      return soft_delete;
+    } catch (error) {
+      console.log("something went wrong in the agent service");
+      throw {error}
+    }
+  }
 }
 
 module.exports = AgentService;
