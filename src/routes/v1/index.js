@@ -5,6 +5,7 @@ const userDetailController = require("../../controllers/userDetail-controller");
 const investmentController = require("../../controllers/investment-controller");
 const agentController = require("../../controllers/agent-controller");
 const lenderController = require("../../controllers/lender-controller");
+const planController = require("../../controllers/plan-controller");
 const { AuthRequestValidator } = require("../../middlewares/index");
 const router = express.Router();
 
@@ -28,8 +29,10 @@ router.get("/isAuthenticated", userController.isAuthenticated);
 // this api only for registration(KYC)
 router.patch("/register/:id", userDetailController.update);
 
+
 //this api will give you the union of all detail from the user and userdetail table
 router.get("/combinedUserData", userDetailController.getAllUserData);
+router.get("/combinedUserData/:id", userDetailController.getUserData);
 
 //for investment table
 router.post("/investment", investmentController.create);
@@ -49,6 +52,9 @@ router.patch("/updateAgent", agentController.updateAgent);
 //API FOR LENDERS
 router.get("/getAllLender", lenderController.getAllLender);
 router.patch("/deleteAgent", agentController.softDelete);
+
+//API FOR PLANS
+router.get("/getPlans", planController.getPlans);
 
 module.exports = router;
 

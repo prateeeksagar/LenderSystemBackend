@@ -8,6 +8,7 @@ class LenderRepository {
         "select * from Users u inner join UserDetails ud on u.uid = ud.userId  inner join User_Roles ur on ur.UserUid = u.uid where ur.roleid=2;"
       );
       //   UserDetail Users User_Roles
+      console.log(lender);
       return lender;
     } catch (error) {
       console.log(error);

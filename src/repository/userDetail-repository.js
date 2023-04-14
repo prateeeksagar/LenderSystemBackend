@@ -37,7 +37,17 @@ class UserDetailsRepository {
       throw { error };
     }
   }
-
+  async getUserData(userId) {
+    try {
+      const [result, metadata] = await sequelize.query(
+        `SELECT * FROM UserDetails as UserDetail JOIN Users as User ON User.uid = UserDetail.userId where uid = ${userId};`
+      );
+      return result;
+    } catch (error) {
+      console.log("something went wrong in the user repo");
+      throw { error };
+    }
+  }
   async getAllUserdata() {
     try {
       const [result, metadata] = await sequelize.query(

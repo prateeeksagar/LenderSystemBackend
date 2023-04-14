@@ -47,6 +47,16 @@ class UserDetailService {
       throw error;
     }
   }
+
+  async getUserData(userId) {
+    try {
+      const response = await this.userDetailRepository.getUserData(userId);
+      return response;
+    } catch (error) {
+      console.log("something went wrong in the user detail service");
+      throw error;
+    }
+  }
 }
 
 module.exports = UserDetailService;

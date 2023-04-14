@@ -83,7 +83,28 @@ const getAllUserData = async (req, res) => {
   }
 };
 
+const getUserData = async (req, res) => {
+  try {
+    const response = await userDetailService.getUserData(req.params.id);
+    return res.status(200).json({
+      data: response,
+      success: true,
+      message: "successfully fetched",
+      err: {},
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      data: {},
+      success: false,
+      message: "not able to get data",
+      err: error,
+    });
+  }
+};
+
 module.exports = {
   update,
   getAllUserData,
+  getUserData,
 };

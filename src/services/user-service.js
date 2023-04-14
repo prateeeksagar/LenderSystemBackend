@@ -73,6 +73,8 @@ class UserSerivce {
       const newJWT = await this.createToken({
         emailId: check.emailId,
         uid: check.uid,
+        firstName: check.firstName,
+        lastName: check.lastName,
       });
       const result = {
         newJWT,
