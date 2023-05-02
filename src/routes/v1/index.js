@@ -3,7 +3,10 @@ const express = require("express");
 const userController = require("../../controllers/user-controller");
 const userDetailController = require("../../controllers/userDetail-controller");
 const investmentController = require("../../controllers/investment-controller");
-const transcationController = require("../../controllers/transaction-controller");
+const agentController = require("../../controllers/agent-controller");
+const lenderController = require("../../controllers/lender-controller");
+const planController = require("../../controllers/plan-controller");
+const transactionController = require("../../controllers/transaction-controller");
 const { AuthRequestValidator } = require("../../middlewares/index");
 const router = express.Router();
 
@@ -26,7 +29,6 @@ router.get("/isAuthenticated", userController.isAuthenticated);
 
 // this api only for registration(KYC)
 router.patch("/register/:id", userDetailController.update);
-
 
 //this api will give you the union of all detail from the user and userdetail table
 router.get("/combinedUserData", userDetailController.getAllUserData);
@@ -53,8 +55,14 @@ router.patch("/deleteAgent", agentController.softDelete);
 
 //API FOR PLANS
 router.get("/getPlans", planController.getPlans);
-//this is the api for transaction
-router.post("/transaction", transcationController.createTransaction);
+
+
+//API FOR TRANSACTION
+router.post("/transaction", transactionController.createTransaction);
+
+
+//API FOR WALLET 
+
 
 module.exports = router;
 
