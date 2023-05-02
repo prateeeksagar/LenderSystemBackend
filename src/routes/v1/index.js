@@ -3,7 +3,7 @@ const express = require("express");
 const userController = require("../../controllers/user-controller");
 const userDetailController = require("../../controllers/userDetail-controller");
 const investmentController = require("../../controllers/investment-controller");
-
+const transcationController = require("../../controllers/transaction-controller");
 const { AuthRequestValidator } = require("../../middlewares/index");
 const router = express.Router();
 
@@ -33,6 +33,9 @@ router.post("/investment", investmentController.create);
 
 //this api to check that the user is admin or not
 router.get("/isAdmin", userController.isAdmin);
+
+//this is the api for transaction
+router.post("/transaction", transcationController.createTransaction);
 
 module.exports = router;
 
