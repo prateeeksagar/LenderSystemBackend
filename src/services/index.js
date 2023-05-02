@@ -5,4 +5,5 @@ module.exports = {
   AgentService: require("./agent-service"),
   LenderService: require("./lender-service"),
   PlanService: require("./plan-service"),
+  TransactionService: require("./transaction-service"),
 };

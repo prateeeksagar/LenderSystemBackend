@@ -5,4 +5,5 @@ module.exports = {
   AgentRepository: require("../repository/agent-repository"),
   LenderRepository: require("../repository/lender-repository"),
   PlanRepository: require("./plan-repository"),
+  TransactionRepository: require("./transaction-repository"),
 };
