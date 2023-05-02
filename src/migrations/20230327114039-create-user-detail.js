@@ -78,6 +78,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
+      assignedAgentId: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

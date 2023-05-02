@@ -16,7 +16,7 @@ const create = async (req, res) => {
     const detail = {
       userId: user.uid,
     };
-    // console.log(user);
+    console.log(user);
     await userDetailService.createUserDetail(detail);
     await investmentService.createInvestment(detail.userId);
     return res.status(201).json({

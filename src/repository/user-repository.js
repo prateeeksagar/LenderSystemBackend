@@ -1,8 +1,26 @@
 const { User, Role, User_Roles, sequelize } = require("../models/index");
+const { Op } = require("sequelize");
 const uniqid = require("uniqid");
 class UsersRepository {
   #createFilter(data) {
     let filter = {};
+
+    if (data.firstName) {
+      filter.firstName = data.firstName;
+    }
+    // if(data.lastName) {
+    //   filter.lastName = data.lastName;
+    // }
+    // if(data.mobileNo) {
+    //   filter.mobileNo = data.mobileNo;
+    // }
+    // if(data.emailId) {
+    //   filter.emailId = data.emailId;
+    // }
+
+    //pending filter function
+
+    return filter;
   }
 
   async createUser(data) {
@@ -58,12 +76,22 @@ class UsersRepository {
     }
   }
 
-  async getAllUser(filter) {
+  async getAllUser(data) {
     try {
-      if (filter) {
-        const filterObject = this.#createFilter(filter);
+      if (data) {
+        let filter = {};
+
+        if (data.firstName) {
+          filter.firstName = data.firstName;
+        }
+        // const filterObject = this.#createFilter(filter);
         const users = await User.findAll({
-          where: filterObject,
+          where: {
+            order: [["id"]],
+            firstName: {
+              [Op.iLike]: "%" + filter.firstName + "%",
+            },
+          },
         });
         return users;
       }

@@ -43,6 +43,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: "N",
       },
+      assignedAgentId: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
     },
     {
       sequelize,
