@@ -22,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(models.Role, {
         through: "User_Roles",
       });
+      this.belongsTo(models.wallet, {
+        foreignKey: "uid",
+      });
     }
   }
   User.init(

@@ -7,6 +7,7 @@ const agentController = require("../../controllers/agent-controller");
 const lenderController = require("../../controllers/lender-controller");
 const planController = require("../../controllers/plan-controller");
 const transactionController = require("../../controllers/transaction-controller");
+const walletController = require("../../controllers/wallet-controllers");
 const { AuthRequestValidator } = require("../../middlewares/index");
 const router = express.Router();
 
@@ -56,13 +57,11 @@ router.patch("/deleteAgent", agentController.softDelete);
 //API FOR PLANS
 router.get("/getPlans", planController.getPlans);
 
-
 //API FOR TRANSACTION
 router.post("/transaction", transactionController.createTransaction);
 
-
-//API FOR WALLET 
-
+//API FOR WALLET
+router.get("/getWallet", walletController.getWallet);
 
 module.exports = router;
 

@@ -1,4 +1,3 @@
-const { create } = require("../controllers/user-controller");
 const { TransactionRepository } = require("../repository/index");
 
 class TransactionService {

@@ -1,8 +1,14 @@
-const { UserService } = require("../services/index");
-const { UserDetailService, InvestmentService } = require("../services/index");
+// const { UserService } = require("../services/index");
+const {
+  UserDetailService,
+  InvestmentService,
+  UserService,
+  WalletService,
+} = require("../services/index");
 const userService = new UserService();
 const userDetailService = new UserDetailService();
 const investmentService = new InvestmentService();
+const walletService = new WalletService();
 const create = async (req, res) => {
   try {
     const data = {
@@ -19,6 +25,7 @@ const create = async (req, res) => {
     console.log(user);
     await userDetailService.createUserDetail(detail);
     await investmentService.createInvestment(detail.userId);
+    await walletService.createWallet(detail);
     return res.status(201).json({
       data: user,
       success: true,

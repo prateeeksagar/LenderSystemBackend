@@ -6,4 +6,5 @@ module.exports = {
   LenderService: require("./lender-service"),
   PlanService: require("./plan-service"),
   TransactionService: require("./transaction-service"),
+  WalletService: require("./wallet-service"),
 };
