@@ -18,6 +18,18 @@ module.exports = (sequelize, DataTypes) => {
   Investment.init(
     {
       userId: { type: DataTypes.INTEGER, allowNull: false },
+      PlanId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      amount_Invested: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      opt_status: {
+        type: DataTypes.STRING,
+        defaultValue: "N",
+      },
       isDeleted: {
         type: DataTypes.STRING,
         allowNull: false,

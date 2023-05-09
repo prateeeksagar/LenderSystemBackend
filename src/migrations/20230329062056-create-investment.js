@@ -22,6 +22,19 @@ module.exports = {
           as: "UserId",
         },
       },
+      PlanId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+
+      amount_Invested: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      opt_status: {
+        type: Sequelize.STRING,
+        defaultValue: "N",
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -1,52 +1,60 @@
-'use strict';
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Transactions', {
+    await queryInterface.createTable("Transactions", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
-      uid: {
-        type: Sequelize.INTEGER
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: "CASCADE",
+        references: {
+          model: "Users",
+          key: "uid",
+          as: "userId",
+        },
       },
       txn_type: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       amount: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       txn_referenceId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: true,
       },
       txn_status: {
-        type: Sequelize.STRING
-      },
-      createdOn: {
-        type: Sequelize.DATE
+        type: Sequelize.STRING,
+        defaultValue: "pending",
       },
       createdBy: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: "user",
       },
-      updatedOn: {
-        type: Sequelize.DATE
-      },
+
       updatedBy: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: "user",
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Transactions');
-  }
+    await queryInterface.dropTable("Transactions");
+  },
 };

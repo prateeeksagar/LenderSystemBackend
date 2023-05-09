@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasOne(models.UserDetail, {
         foreignKey: "userId",
       });
-      this.hasOne(models.Investment, {
+      this.hasMany(models.Investment, {
         foreignKey: "uid",
       });
       this.hasMany(models.Transaction, {

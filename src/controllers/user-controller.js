@@ -24,7 +24,10 @@ const create = async (req, res) => {
     };
     console.log(user);
     await userDetailService.createUserDetail(detail);
-    await investmentService.createInvestment(detail.userId);
+
+    //removing the investment table from the user creating  time
+    // await investmentService.createInvestment(detail.userId);
+
     await walletService.createWallet(detail);
     return res.status(201).json({
       data: user,

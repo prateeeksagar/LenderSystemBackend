@@ -1,6 +1,6 @@
 "use strict";
 
-const { all } = require("../routes/v1");
+// const { all } = require("../routes/v1");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

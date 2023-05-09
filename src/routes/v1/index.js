@@ -62,6 +62,8 @@ router.post("/transaction", transactionController.createTransaction);
 
 //API FOR WALLET
 router.get("/getWallet", walletController.getWallet);
+router.patch("/addAmount", walletController.addAmount);
+router.patch("/deductAmount", walletController.deductAmount);
 
 module.exports = router;
 

@@ -21,7 +21,30 @@ class WalletService {
       const getWallet = await this.walletRepository.getWallet(userId);
       return getWallet;
     } catch (error) {
-      console.log("something went wrong in the waller service");
+      console.log("something went wrong in the wallet service");
+      throw { error };
+    }
+  }
+
+  async addAmount(userId, amount) {
+    try {
+      const addAmount = await this.walletRepository.addAmount(userId, amount);
+      return addAmount;
+    } catch (error) {
+      console.log("something went wrong in the wallet service");
+      throw { error };
+    }
+  }
+
+  async deductAmount(userId, amount) {
+    try {
+      const deductAmount = await this.walletRepository.deductAmount(
+        userId,
+        amount
+      );
+      return deductAmount;
+    } catch (error) {
+      console.log("something went wrong in the wallet service");
       throw { error };
     }
   }
