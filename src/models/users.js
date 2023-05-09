@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "uid",
       });
       this.hasMany(models.Transaction, {
-        foreignKey: "uid",
+        foreignKey: "userId",
       });
       this.belongsToMany(models.Role, {
         through: "User_Roles",

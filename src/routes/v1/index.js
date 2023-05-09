@@ -59,6 +59,7 @@ router.get("/getPlans", planController.getPlans);
 
 //API FOR TRANSACTION
 router.post("/transaction", transactionController.createTransaction);
+router.get("/getTransaction", transactionController.getTransactions);
 
 //API FOR WALLET
 router.get("/getWallet", walletController.getWallet);

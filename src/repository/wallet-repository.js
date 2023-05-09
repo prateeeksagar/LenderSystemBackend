@@ -40,11 +40,19 @@ class WalletRepository {
 
   async deductAmount(userId, amount) {
     try {
-      const deductAmount = await wallet.decrement("amount", {
-        by: amount,
-        where: { userId: userId },
+      const check = await wallet.findOne({
+        where: {
+          userId: userId,
+        },
       });
-      return deductAmount;
+      if (check.amount >= amount) {
+        const deductAmount = await wallet.decrement("amount", {
+          by: amount,
+          where: { userId: userId },
+        });
+        return deductAmount;
+      }
+      return false;
     } catch (error) {
       console.log("something went wrong in the wallet addAmount");
       throw error;
