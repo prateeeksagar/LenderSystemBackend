@@ -27,15 +27,21 @@ const addAmount = async (req, res) => {
       userId: req.query.userId,
       amount: req.body.amount,
       txn_type: req.body.txn_type,
+      flowType: req.body.flowType,
     };
-    await transactionService.createTransaction(transaction_data);
+    const transaction = await transactionService.createTransaction(
+      transaction_data
+    );
     const response = await walletService.addAmount(
       req.query.userId,
       req.body.amount
     );
-    // if(response) {
-
-    // }
+    if (!response) {
+      const data = { txn_status: "failed" };
+      await transactionService.updateTransaction(transaction.id, data);
+    }
+    const data = { txn_status: "success" };
+    await transactionService.updateTransaction(transaction.id, data);
     console.log(response);
     return res.status(200).json({
       data: response,
@@ -60,15 +66,25 @@ const deductAmount = async (req, res) => {
       amount: req.body.amount,
       txn_type: req.body.txn_type,
     };
-    await transactionService.createTransaction(transaction_data);
+    const transaction = await transactionService.createTransaction(
+      transaction_data
+    );
     const response = await walletService.deductAmount(
       req.query.userId,
       req.body.amount
     );
-    // if(response) {
-
-    // }
-    console.log(response);
+    if (!response) {
+      data = { txn_status: "failed" };
+      await transactionService.updateTransaction(transaction.id, data);
+      return res.status(500).json({
+        data: {},
+        success: false,
+        message: "Enter amount less than available amount",
+        err: "withdrawl amount is greater than available amount",
+      });
+    }
+    data = { txn_status: "success" };
+    await transactionService.updateTransaction(transaction.id, data);
     return res.status(200).json({
       data: response,
       success: true,

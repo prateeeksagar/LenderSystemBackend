@@ -48,6 +48,16 @@ class WalletService {
       throw { error };
     }
   }
+
+  async updateWallet(userId, data) {
+    try {
+      await this.walletRepository.updateWallet(userId, data);
+      return true;
+    } catch (error) {
+      console.log("something went wrong in the wallet service");
+      throw { error };
+    }
+  }
 }
 
 module.exports = WalletService;

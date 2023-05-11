@@ -3,7 +3,7 @@ const { Investment } = require("../models/index");
 class InvestmentRepository {
   async createInvestment(data) {
     try {
-      const createInvestment = await Investment.create({ userId: data });
+      const createInvestment = await Investment.create(data);
       return createInvestment;
     } catch (error) {
       console.log("something went wrong in the investment repo");

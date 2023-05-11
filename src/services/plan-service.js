@@ -14,6 +14,16 @@ class PlanService {
       throw { error };
     }
   }
+
+  async getPlan(planId) {
+    try {
+      const Plans = await this.planRepository.getPlan(planId);
+      return Plans;
+    } catch (error) {
+      console.log("something went wrong in the plan service");
+      throw { error };
+    }
+  }
 }
 
 module.exports = PlanService;

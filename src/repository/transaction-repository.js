@@ -23,6 +23,20 @@ class TransactionRepository {
       throw { error };
     }
   }
+
+  async updateTransaction(userId, data) {
+    try {
+      const updateTransaction = await Transaction.update(data, {
+        where: {
+          userId: userId,
+        },
+      });
+      return true;
+    } catch (error) {
+      console.log("something went wrong in the transaction table");
+      throw { error };
+    }
+  }
 }
 
 module.exports = TransactionRepository;

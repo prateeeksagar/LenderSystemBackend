@@ -25,6 +25,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      flowType: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       amount: {
         type: DataTypes.INTEGER,
         allowNull: false,

@@ -27,11 +27,11 @@ class WalletRepository {
 
   async addAmount(userId, amount) {
     try {
-      const addAmount = await wallet.increment("amount", {
+      await wallet.increment("amount", {
         by: amount,
         where: { userId: userId },
       });
-      return addAmount;
+      return true;
     } catch (error) {
       console.log("something went wrong in the wallet addAmount");
       throw error;
@@ -53,6 +53,20 @@ class WalletRepository {
         return deductAmount;
       }
       return false;
+    } catch (error) {
+      console.log("something went wrong in the wallet addAmount");
+      throw error;
+    }
+  }
+
+  async updateWallet(userId, data) {
+    try {
+      await wallet.update(data, {
+        where: {
+          userId: userId,
+        },
+      });
+      return true;
     } catch (error) {
       console.log("something went wrong in the wallet addAmount");
       throw error;

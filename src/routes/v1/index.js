@@ -37,6 +37,7 @@ router.get("/combinedUserData/:id", userDetailController.getUserData);
 
 //for investment table
 router.post("/investment", investmentController.create);
+router.post("/investPlan", investmentController.Invest);
 
 //this api to check that the user is admin or not [NOT IN USE]
 router.get("/isAdmin", userController.isAdmin);
