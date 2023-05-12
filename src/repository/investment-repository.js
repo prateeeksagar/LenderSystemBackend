@@ -24,6 +24,20 @@ class InvestmentRepository {
       throw error;
     }
   }
+
+  async updateInvestment(userId, data) {
+    try {
+      const updateInvestment = await Investment(data, {
+        where: {
+          userId: userId,
+        },
+      });
+      return updateInvestment;
+    } catch (error) {
+      console.log("something went wrong in the investment repo");
+      throw error;
+    }
+  }
 }
 
 module.exports = InvestmentRepository;

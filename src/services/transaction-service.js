@@ -38,6 +38,20 @@ class TransactionService {
       throw { error };
     }
   }
+
+  async updateTransactionBy_TxnId(txn_Id, data) {
+    try {
+      const updateTransaction =
+        await this.transactionRepository.updateTransactionBy_TxnId(
+          txn_Id,
+          data
+        );
+      return true;
+    } catch (error) {
+      console.log("something went wrong in the transaction table");
+      throw { error };
+    }
+  }
 }
 
 module.exports = TransactionService;

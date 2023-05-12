@@ -37,6 +37,20 @@ class TransactionRepository {
       throw { error };
     }
   }
+
+  async updateTransactionBy_TxnId(txn_id, data) {
+    try {
+      const updateTransaction = await Transaction.update(data, {
+        where: {
+          id: txn_id,
+        },
+      });
+      return true;
+    } catch (error) {
+      console.log("something went wrong in the transaction table");
+      throw { error };
+    }
+  }
 }
 
 module.exports = TransactionRepository;

@@ -53,10 +53,10 @@ const Invest = async (req, res) => {
     //now wallet have enough money
     //money locked
     const lockedAmount = checkWalletAmount.amount - req.body.amount;
-    const availableAmount = checkWalletAmount.amount - lockedAmount;
+    // const availableAmount = checkWalletAmount.amount - lockedAmount;
     const lockdata = {
-      locked: lockedAmount,
-      amount: availableAmount,
+      locked: req.body.amount,
+      amount: lockedAmount,
     };
     //now amount get locked
     await walletService.updateWallet(req.query.userId, lockdata);
@@ -71,6 +71,7 @@ const Invest = async (req, res) => {
     const createTransaction = await transactionService.createTransaction(
       txn_Data
     );
+    console.log("txn data", txn_Data);
     //investment table entry
     const invest_data = {
       userId: req.query.userId,
@@ -84,9 +85,12 @@ const Invest = async (req, res) => {
     const updateLockedData = { locked: 0 };
     await walletService.updateWallet(req.query.userId, updateLockedData);
     //removed the locked amount
-    console.log("invest 2");
+    // console.log("invest 2");
     const txn_data = { txn_type: "Plan Purchased", txn_status: "success" };
-    await transactionService.updateTransaction(req.query.userId, txn_data);
+    await transactionService.updateTransactionBy_TxnId(
+      createTransaction.id,
+      txn_data
+    );
 
     return res.status(200).json({
       data: {},

@@ -38,10 +38,10 @@ const addAmount = async (req, res) => {
     );
     if (!response) {
       const data = { txn_status: "failed" };
-      await transactionService.updateTransaction(transaction.id, data);
+      await transactionService.updateTransactionBy_TxnId(transaction.id, data);
     }
     const data = { txn_status: "success" };
-    await transactionService.updateTransaction(transaction.id, data);
+    await transactionService.updateTransactionBy_TxnId(transaction.id, data);
     console.log(response);
     return res.status(200).json({
       data: response,
@@ -65,6 +65,7 @@ const deductAmount = async (req, res) => {
       userId: req.query.userId,
       amount: req.body.amount,
       txn_type: req.body.txn_type,
+      flowType: req.body.flowType,
     };
     const transaction = await transactionService.createTransaction(
       transaction_data
@@ -75,7 +76,7 @@ const deductAmount = async (req, res) => {
     );
     if (!response) {
       data = { txn_status: "failed" };
-      await transactionService.updateTransaction(transaction.id, data);
+      await transactionService.updateTransactionBy_TxnId(transaction.id, data);
       return res.status(500).json({
         data: {},
         success: false,
@@ -84,7 +85,7 @@ const deductAmount = async (req, res) => {
       });
     }
     data = { txn_status: "success" };
-    await transactionService.updateTransaction(transaction.id, data);
+    await transactionService.updateTransactionBy_TxnId(transaction.id, data);
     return res.status(200).json({
       data: response,
       success: true,
