@@ -15,11 +15,20 @@ class TransactionService {
       throw { error };
     }
   }
-
-  async getTransactions(userId) {
+  async transactionCount(userId) {
+    try {
+      const transactionCount = await this.transactionRepository.transactionCount(userId);
+      return transactionCount;
+    } catch (error) {
+      console.log("something went wrong in the transaction table");
+      throw { error };
+    }
+  }
+  async getTransactions(userId, page) {
     try {
       const getTransactions = await this.transactionRepository.getTransactions(
-        userId
+        userId,
+        page
       );
       return getTransactions;
     } catch (error) {

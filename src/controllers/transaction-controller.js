@@ -23,7 +23,10 @@ const createTransaction = async (req, res) => {
 
 const getTransactions = async (req, res) => {
   try {
-    const response = await transactionService.getTransactions(req.query.userId);
+    const response = await transactionService.getTransactions(
+      req.query.userId,
+      req.query.page
+    );
     return res.status(200).json({
       data: response,
       success: true,
@@ -40,7 +43,29 @@ const getTransactions = async (req, res) => {
   }
 };
 
+const transactionCount = async (req, res) => {
+  try {
+    const response = await transactionService.transactionCount(
+      req.query.userId
+    );
+    return res.status(200).json({
+      data: response,
+      success: true,
+      message: "successfully sent",
+      err: {},
+    });
+  } catch (error) {
+    return res.status(500).json({
+      data: {},
+      success: false,
+      message: "not able count the transaction",
+      err: error,
+    });
+  }
+};
+
 module.exports = {
   createTransaction,
   getTransactions,
+  transactionCount,
 };

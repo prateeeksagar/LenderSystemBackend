@@ -10,15 +10,37 @@ class TransactionRepository {
       throw { error };
     }
   }
-  async getTransactions(userId) {
+
+  async transactionCount(userId) {
     try {
-      const getTransactions = await Transaction.findAll({
+      const transactionCount = await Transaction.count({
         where: {
           userId: userId,
         },
       });
+      return transactionCount;
+    } catch (error) {
+      console.log("something went wrong in the transaction count");
+      throw { error };
+    }
+  }
+
+  async getTransactions(userId, page) {
+    try {
+      // const page = 1;
+      const limit = 5;
+      const pageSize = 1;
+      const offset = (page - 1) * limit;
+      const getTransactions = await Transaction.findAll({
+        where: {
+          userId: userId,
+        },
+        offset: 5 * (page - 1),
+        limit,
+      });
       return getTransactions;
     } catch (error) {
+      console.log(error);
       console.log("something went wrong in the transaction table");
       throw { error };
     }
