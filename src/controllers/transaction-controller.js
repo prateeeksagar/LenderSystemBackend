@@ -1,5 +1,6 @@
 const { TransactionService } = require("../services/index");
-
+const fs = require("fs");
+const path = require("path");
 const transactionService = new TransactionService();
 
 const createTransaction = async (req, res) => {
@@ -64,8 +65,26 @@ const transactionCount = async (req, res) => {
   }
 };
 
+const dateBasedTransaction = async (req, res) => {
+  try {
+    const response = await transactionService.dateBasedTransaction(
+      req.query.userId,
+      req.query.day
+    );
+    console.log(__dirname);
+    return res.sendFile("/home/prateeksagar/LenderSystemBackend/webpage.pdf");
+  } catch (error) {
+    return res.status(500).json({
+      data: {},
+      success: false,
+      message: "not able to fetch the details",
+      err: error,
+    });
+  }
+};
 module.exports = {
   createTransaction,
   getTransactions,
   transactionCount,
+  dateBasedTransaction,
 };

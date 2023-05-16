@@ -1,5 +1,5 @@
 const { Transaction } = require("../models/index");
-
+const { Op } = require("sequelize");
 class TransactionRepository {
   async createTransaction(data) {
     try {
@@ -69,6 +69,28 @@ class TransactionRepository {
       });
       return true;
     } catch (error) {
+      console.log("something went wrong in the transaction table");
+      throw { error };
+    }
+  }
+
+  async dateBasedTransaction(userId, data) {
+    try {
+      const day = new Date(new Date().setDate(new Date().getDate() - data));
+      const dateBasedTransaction = await Transaction.findAll({
+        where: {
+          userId: userId,
+          createdAt: {
+            [Op.gte]: day,
+            [Op.lte]: new Date(),
+          },
+        },
+        raw: true,
+      });
+      // console.log(dateBasedTransaction);
+      return dateBasedTransaction;
+    } catch (error) {
+      console.log(error);
       console.log("something went wrong in the transaction table");
       throw { error };
     }
