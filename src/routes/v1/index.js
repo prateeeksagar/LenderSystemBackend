@@ -63,6 +63,10 @@ router.post("/transaction", transactionController.createTransaction);
 router.get("/getTransaction", transactionController.getTransactions);
 router.get("/transactionCount", transactionController.transactionCount);
 router.get("/dateBasedTransaction", transactionController.dateBasedTransaction);
+router.get(
+  "/sendTransactionToMail",
+  transactionController.sendTransactionToMail
+);
 
 //API FOR WALLET
 router.get("/getWallet", walletController.getWallet);

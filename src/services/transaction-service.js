@@ -1,9 +1,14 @@
-const { TransactionRepository } = require("../repository/index");
+const {
+  TransactionRepository,
+  UserRepository,
+} = require("../repository/index");
 const puppeteer = require("puppeteer");
 const path = require("path").resolve(__dirname, "..");
+const nodemailer = require("nodemailer");
 class TransactionService {
   constructor() {
     this.transactionRepository = new TransactionRepository();
+    this.userRepository = new UserRepository();
   }
 
   async createTransaction(data) {
@@ -73,10 +78,10 @@ class TransactionService {
       // console.log("this is the transaction------", dateBasedTransaction);
       //using puppeter
       const template = async (transactions) => {
-        console.log("template----------", transactions);
+        // console.log("template----------", transactions);
         // ****************************************************
         let tableData = "";
-        transactions.map(
+        await transactions.map(
           (tran, index) =>
             (tableData += ` <tr key=${index}>
             <td>
@@ -90,7 +95,7 @@ class TransactionService {
               ${tran.amount}
             </td>
             <td>
-              balance
+            ${tran.balance}
             </td>
           </tr>`)
         );
@@ -154,7 +159,7 @@ class TransactionService {
         const data = await webPage.pdf({
           printBackground: true,
           displayHeaderFooter: true,
-          path: "webpage.pdf",
+          path: "/home/prateeksagar/LenderSystemBackend/webpage.pdf",
           format: "Tabloid",
           // format: "A4",
           landscape: false,
@@ -171,6 +176,46 @@ class TransactionService {
       webPageToPdf();
       return dateBasedTransaction;
     } catch (error) {
+      console.log("this is date", error);
+      console.log("something went wrong in the service layer");
+      throw { error };
+    }
+  }
+
+  //function for sending trasaction receipt into gmail
+  async sendTransactionToMail(userId, data) {
+    try {
+      const response = await this.userRepository.getUser(userId);
+      await this.dateBasedTransaction(userId, data);
+      // console.log("this is---------", response);
+      let mailTransporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        auth: {
+          user: "faircentmrborrower@gmail.com",
+          pass: "amdozngheogafooc",
+        },
+      });
+
+      let message = {
+        from: "faircentmrborrower@gmail.com",
+        to: `${response.emailId}`,
+        subject: "Transaction Reciept",
+        text: `Last ${data} day Transaction. Please find the attachment.
+        `,
+        attachments: [
+          {
+            filename: "webpage.pdf",
+            path: "/home/prateeksagar/LenderSystemBackend/webpage.pdf",
+          },
+        ],
+      };
+      console.log("this is message", message);
+      const info = await mailTransporter.sendMail(message);
+      console.log(info);
+      return true;
+    } catch (error) {
+      console.log("this is mail", error);
       console.log("something went wrong in the service layer");
       throw { error };
     }

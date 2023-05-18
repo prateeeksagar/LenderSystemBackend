@@ -28,6 +28,7 @@ const addAmount = async (req, res) => {
       amount: req.body.amount,
       txn_type: req.body.txn_type,
       flowType: req.body.flowType,
+      balance: 0,
     };
     const transaction = await transactionService.createTransaction(
       transaction_data
@@ -36,13 +37,17 @@ const addAmount = async (req, res) => {
       req.query.userId,
       req.body.amount
     );
+
+    const walletBalance = await walletService.getWallet(req.query.userId);
+    console.log("this is response", walletBalance.amount);
     if (!response) {
       const data = { txn_status: "failed" };
       await transactionService.updateTransactionBy_TxnId(transaction.id, data);
     }
-    const data = { txn_status: "success" };
+    const walletAmount = walletBalance.amount;
+    const data = { txn_status: "success", balance: walletAmount };
+    console.log(data);
     await transactionService.updateTransactionBy_TxnId(transaction.id, data);
-    console.log(response);
     return res.status(200).json({
       data: response,
       success: true,
@@ -50,6 +55,7 @@ const addAmount = async (req, res) => {
       err: {},
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       data: {},
       success: false,
@@ -84,7 +90,8 @@ const deductAmount = async (req, res) => {
         err: "withdrawl amount is greater than available amount",
       });
     }
-    data = { txn_status: "success" };
+    const walletAmount = await walletService.getWallet(req.query.userId);
+    data = { txn_status: "success", balance: walletAmount.amount };
     await transactionService.updateTransactionBy_TxnId(transaction.id, data);
     return res.status(200).json({
       data: response,

@@ -40,7 +40,7 @@ const Invest = async (req, res) => {
     console.log("started-------3");
     // check that plan minimum amount value should get satisfied
     if (
-      plan.minimumInvestmentAmount > req.body.amount &&
+      plan.minimumInvestmentAmount > req.body.amount ||
       checkWalletAmount.amount < req.body.amount
     ) {
       return res.status(308).json({
@@ -64,9 +64,10 @@ const Invest = async (req, res) => {
     const txn_Data = {
       userId: req.query.userId,
       txn_type: "Plan Purchasing",
-      flowType: "debit",
+      flowType: "Debit",
       amount: req.body.amount,
       txn_status: "pending",
+      balance: 0,
     };
     const createTransaction = await transactionService.createTransaction(
       txn_Data
@@ -86,7 +87,12 @@ const Invest = async (req, res) => {
     await walletService.updateWallet(req.query.userId, updateLockedData);
     //removed the locked amount
     // console.log("invest 2");
-    const txn_data = { txn_type: "Plan Purchased", txn_status: "success" };
+    const walletAmount = await walletService.getWallet(req.query.userId);
+    const txn_data = {
+      txn_type: "Plan Purchased",
+      txn_status: "success",
+      balance: walletAmount.amount,
+    };
     await transactionService.updateTransactionBy_TxnId(
       createTransaction.id,
       txn_data

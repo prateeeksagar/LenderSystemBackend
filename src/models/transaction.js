@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      balance: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
       txn_referenceId: {
         type: DataTypes.INTEGER,
         allowNull: true,

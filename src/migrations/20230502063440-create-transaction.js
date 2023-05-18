@@ -38,6 +38,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true,
       },
+      balance: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       txn_status: {
         type: Sequelize.STRING,
         defaultValue: "pending",

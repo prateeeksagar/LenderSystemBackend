@@ -27,11 +27,11 @@ class WalletRepository {
 
   async addAmount(userId, amount) {
     try {
-      await wallet.increment("amount", {
+      const data = await wallet.increment("amount", {
         by: amount,
         where: { userId: userId },
       });
-      return true;
+      return data;
     } catch (error) {
       console.log("something went wrong in the wallet addAmount");
       throw error;

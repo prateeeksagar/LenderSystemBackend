@@ -35,6 +35,7 @@ class TransactionRepository {
         where: {
           userId: userId,
         },
+        order: [["createdAt", "DESC"]],
         offset: 5 * (page - 1),
         limit,
       });
@@ -85,6 +86,7 @@ class TransactionRepository {
             [Op.lte]: new Date(),
           },
         },
+
         raw: true,
       });
       // console.log(dateBasedTransaction);

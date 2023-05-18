@@ -72,7 +72,9 @@ const dateBasedTransaction = async (req, res) => {
       req.query.day
     );
     console.log(__dirname);
-    return res.sendFile("/home/prateeksagar/LenderSystemBackend/webpage.pdf");
+    return res
+      .status(200)
+      .sendFile("/home/prateeksagar/LenderSystemBackend/webpage.pdf");
   } catch (error) {
     return res.status(500).json({
       data: {},
@@ -82,9 +84,31 @@ const dateBasedTransaction = async (req, res) => {
     });
   }
 };
+
+const sendTransactionToMail = async (req, res) => {
+  try {
+    await transactionService.sendTransactionToMail(
+      req.query.userId,
+      req.query.day
+    );
+    return res.status(200).json({
+      message: "Email sent successfully",
+      success: true,
+      err: {},
+    });
+  } catch (error) {
+    return res.status(500).json({
+      data: {},
+      success: false,
+      message: "failed to send Email",
+      err: error,
+    });
+  }
+};
 module.exports = {
   createTransaction,
   getTransactions,
   transactionCount,
   dateBasedTransaction,
+  sendTransactionToMail,
 };

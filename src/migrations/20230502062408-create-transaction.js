@@ -31,6 +31,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      balance: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       txn_referenceId: {
         type: Sequelize.INTEGER,
         allowNull: true,
