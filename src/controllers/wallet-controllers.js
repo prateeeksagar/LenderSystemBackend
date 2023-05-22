@@ -72,6 +72,7 @@ const deductAmount = async (req, res) => {
       amount: req.body.amount,
       txn_type: req.body.txn_type,
       flowType: req.body.flowType,
+      balance: 0,
     };
     const transaction = await transactionService.createTransaction(
       transaction_data

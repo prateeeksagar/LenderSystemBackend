@@ -67,9 +67,13 @@ const transactionCount = async (req, res) => {
 
 const dateBasedTransaction = async (req, res) => {
   try {
+    const dates = {
+      startDate: req.query.startDate,
+      endDate: req.query.endDate,
+    };
     const response = await transactionService.dateBasedTransaction(
       req.query.userId,
-      req.query.day
+      dates
     );
     console.log(__dirname);
     return res
@@ -87,10 +91,11 @@ const dateBasedTransaction = async (req, res) => {
 
 const sendTransactionToMail = async (req, res) => {
   try {
-    await transactionService.sendTransactionToMail(
-      req.query.userId,
-      req.query.day
-    );
+    const dates = {
+      startDate: req.query.startDate,
+      endDate: req.query.endDate,
+    };
+    await transactionService.sendTransactionToMail(req.query.userId, dates);
     return res.status(200).json({
       message: "Email sent successfully",
       success: true,

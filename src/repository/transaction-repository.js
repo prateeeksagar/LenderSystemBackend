@@ -77,13 +77,16 @@ class TransactionRepository {
 
   async dateBasedTransaction(userId, data) {
     try {
-      const day = new Date(new Date().setDate(new Date().getDate() - data));
+      const startDate = data.startDate;
+      const endDate = data.endDate;
+      console.log(`${startDate} 00:00:00 and ${endDate} 23:59:59`);
+      // const day = new Date(new Date().setDate(new Date().getDate() - data));
       const dateBasedTransaction = await Transaction.findAll({
         where: {
           userId: userId,
           createdAt: {
-            [Op.gte]: day,
-            [Op.lte]: new Date(),
+            [Op.gte]: `${startDate} 00:00:00`,
+            [Op.lte]: `${endDate} 23:59:59`,
           },
         },
 

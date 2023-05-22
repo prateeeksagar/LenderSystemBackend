@@ -4,7 +4,11 @@
     "password": null,
     "database": "Lender_DB",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "timezone": "+05:30",
+    "dialectOptions": {
+      "useUTC": false
+    }
   },
   "test": {
     "username": "root",

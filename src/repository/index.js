@@ -7,4 +7,5 @@ module.exports = {
   PlanRepository: require("./plan-repository"),
   TransactionRepository: require("./transaction-repository"),
   WalletRepository: require("../repository/wallet-repository"),
+  NomineeRepository : require("./nominee-repository")
 };

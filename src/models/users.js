@@ -25,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.wallet, {
         foreignKey: "uid",
       });
+      this.belongsTo(models.Nominee, {
+        foreignKey: "uid",
+      });
     }
   }
   User.init(

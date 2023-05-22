@@ -173,7 +173,7 @@ class TransactionService {
         await browser.close();
         return data;
       };
-      webPageToPdf();
+      await webPageToPdf();
       return dateBasedTransaction;
     } catch (error) {
       console.log("this is date", error);

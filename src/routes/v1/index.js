@@ -8,6 +8,7 @@ const lenderController = require("../../controllers/lender-controller");
 const planController = require("../../controllers/plan-controller");
 const transactionController = require("../../controllers/transaction-controller");
 const walletController = require("../../controllers/wallet-controllers");
+const nomineeController = require("../../controllers/nominee-controllers");
 const { AuthRequestValidator } = require("../../middlewares/index");
 const router = express.Router();
 
@@ -36,7 +37,7 @@ router.get("/combinedUserData", userDetailController.getAllUserData);
 router.get("/combinedUserData/:id", userDetailController.getUserData);
 
 //for investment table
-router.post("/investment", investmentController.create);
+router.post("/investment", investmentController.create); //for admin use only
 router.post("/investPlan", investmentController.Invest);
 
 //this api to check that the user is admin or not [NOT IN USE]
@@ -72,6 +73,9 @@ router.get(
 router.get("/getWallet", walletController.getWallet);
 router.patch("/addAmount", walletController.addAmount);
 router.patch("/deductAmount", walletController.deductAmount);
+
+//API FOR NOMINEE
+router.post("/nominee", nomineeController.createNominee);
 
 module.exports = router;
 

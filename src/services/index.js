@@ -7,4 +7,5 @@ module.exports = {
   PlanService: require("./plan-service"),
   TransactionService: require("./transaction-service"),
   WalletService: require("./wallet-service"),
+  NomineeService: require("./nominee-service"),
 };
